@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "KnightBoard",
+            "request": "launch",
+            "mainClass": "KnightBoard",
+            "projectName": "cs421lab1_8d1dd27"
+        },
+        {
+            "name": "Debug Website",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://127.0.0.1:3000/"
+        }
+    ]
+}
