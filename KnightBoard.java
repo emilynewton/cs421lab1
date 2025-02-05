@@ -76,9 +76,28 @@ public class KnightBoard extends Position {
             return true; 
         }
 
+        //generate all valid knight moves from current position
+            //calculate distance to border 
+            //store each move in Position object 
+        //sort list by border distance 
+
+        ArrayList<Integer> distances = new ArrayList<>(); 
+
         for (int i = 0; i < 8; i++) {
-            
+            int nextRow = row + rowMoves[i]; 
+            int nextCol = col + colMoves[i]; 
+            //if next move is available, distance to border is calculated
+            if (isAvailable(nextRow, nextCol)) {
+                int borderDistance = distanceToBorder(nextRow, nextCol);  
+                distances.add(new Position(nextRow, nextCol, borderDistance)); 
+            }
         }
+
+        //sort distance in ascending order 
+        distances.sort(null); 
+
+        
+
         return false; 
     }
 
@@ -96,19 +115,6 @@ public class KnightBoard extends Position {
         }
 
         ArrayList<Position> moves = new ArrayList<>(); 
-
-        //for all valid knight moves for next move, 
-            // if next move is available 
-                // count its onward moves
-                // add it to the list 
-        //sort list into ascending order    
-        //for each item in onward move 
-            //board[nextrow][nextcol] = moveCount
-
-            //recursive call
-            //if heuristic2(board, nextrow, nextcol, moveCount + 1)
-                //return true; 
-            //board[nextrow][next]
         
         for (int i = 0; i < 8; i++) {
             int nextRow = row + rowMoves[i]; 
@@ -119,6 +125,7 @@ public class KnightBoard extends Position {
                 moves.add(new Position(nextRow, nextCol, onwardMoves)); 
             }
         }
+
         //sorting list into ascending order 
         moves.sort(null);
 
@@ -130,7 +137,7 @@ public class KnightBoard extends Position {
                 return true; 
             }
         }
-        
+
         // No valid moves 
         return false; 
     }

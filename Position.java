@@ -9,7 +9,7 @@ public class Position {
         this.col = col; 
     }
 
-    public Position (int row, int col, int onwardMoves) {
+    public Position(int row, int col, int onwardMoves) {
         this.row = row; 
         this.col = col; 
     }
