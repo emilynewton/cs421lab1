@@ -1,6 +1,4 @@
 public class Position {
-    //represents position, row, col, on board
-
     public int row; 
     public int col; 
 

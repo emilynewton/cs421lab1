@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "KnightTour",
+            "request": "launch",
+            "mainClass": "KnightTour",
+            "projectName": "cs421lab1_8d1dd27"
+        },
+        {
+            "type": "java",
             "name": "KnightBoard",
             "request": "launch",
             "mainClass": "KnightBoard",
