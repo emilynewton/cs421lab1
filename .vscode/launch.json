@@ -5,14 +5,16 @@
             "name": "KnightTour",
             "request": "launch",
             "mainClass": "KnightTour",
-            "projectName": "cs421lab1_8d1dd27"
+            "projectName": "cs421lab1_8d1dd27",
+            "args": "${command:SpecifyProgramArgs}"
         },
         {
             "type": "java",
             "name": "KnightBoard",
             "request": "launch",
             "mainClass": "KnightBoard",
-            "projectName": "cs421lab1_8d1dd27"
+            "projectName": "cs421lab1_8d1dd27",
+            "args": "${command:SpecifyProgramArgs}"
         },
         {
             "name": "Debug Website",
