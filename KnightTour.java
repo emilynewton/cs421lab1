@@ -2,17 +2,23 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * KnightTour is the main driver class for solving the Knight's Tour problem. 
+ * Different search strategies can be used and the chessboard is initialized. 
+ * The board is represented as a 2D array where each cell stores the move order. 
+ */
 public class KnightTour {
 
     // possible row and column moves
-    public static int[] rowMoves = { 1, 2, 2, 1, -1, -2, -2, -1 };
-    public static int[] colMoves = { 2, 1, -1, -2, -2, -1, 1, 2 };
+    public static int[] colMoves = {  1,  2, 2, 1, -1, -2, -2, -1, };
+    public static int[] rowMoves = { -2, -1, 1, 2,  2,  1, -1, -2, };
 
-    public int moveCount = 0;
+    public static int totalMoves = 1; 
 
     public static void main(String[] args) {
 
         if (args.length < 4) {
+            System.out.println("Requires four arguments: java KnightTour <0/1/2 (no/heuristicI/heuristicII search)> <n> <x> <y>"); 
             return;
         }
 
@@ -28,27 +34,32 @@ public class KnightTour {
 
         // creates an instance of the board given size argument
         KnightBoard board = new KnightBoard(size);
-        board.board[row][col] = 0;
+        board.board[row][col] = 1;
         if (searchMethod == 0) {
-
-            if (!basicSearch(board, row, col, 1)) {
+            if (!basicSearch(board, row, col, 2)) {
                 System.out.println("No solution found");
             } else {
                 System.out.println("\n Knight Tour Board: Basic Search");
+                System.out.println(); 
+                System.out.println("The total number of moves is " + totalMoves);
                 board.printBoard();
             }
         } else if (searchMethod == 1) {
-            if (!heuristic1(board, row, col, 1)) {
+            if (!heuristic1(board, row, col, 2)) {
                 System.out.println("No solution found");
             } else {
                 System.out.println("\n Knight Tour Board: Heuristic I");
+                System.out.println(); 
+                System.out.println("The total number of moves is " + totalMoves);
                 board.printBoard();
             }
         } else if (searchMethod == 2) {
-            if (!heuristic2(board, row, col, 1)) {
+            if (!heuristic2(board, row, col, 2)) {
                 System.out.println("No solution found");
             } else {
                 System.out.println("\n Knight Tour Board: Heuristic II");
+                System.out.println(); 
+                System.out.println("The total number of moves is " + totalMoves);
                 board.printBoard();
             }
         }
@@ -63,19 +74,16 @@ public class KnightTour {
      */
     public static boolean basicSearch(KnightBoard board, int row, int col, int moveCount) {
         // all spaces have been filled
-        if (moveCount == board.n * board.n) {
+        if (moveCount == (board.n * board.n) + 1) {
             return true;
         }
-
-        /// check this
-        // setting the starting position based on given point
-        // board.board[row][col] = moveCount;
 
         for (int i = 0; i < 8; i++) {
             int nextRow = row + rowMoves[i];
             int nextCol = col + colMoves[i];
             if (board.isAvailable(nextRow, nextCol)) {
                 board.board[nextRow][nextCol] = moveCount;
+                totalMoves++; 
                 if (basicSearch(board, nextRow, nextCol, moveCount + 1)) {
                     return true;
                 }
@@ -96,14 +104,9 @@ public class KnightTour {
      */
     public static boolean heuristic1(KnightBoard board, int row, int col, int moveCount) {
         // all spaces have been filled
-        if (moveCount == board.n * board.n) {
+        if (moveCount == (board.n * board.n) + 1) {
             return true;
         }
-
-        // generate all valid knight moves from current position
-        // calculate distance to border
-        // store each move in Position object
-        // sort list by border distance
 
         List<Position> distances = new ArrayList<>();
 
@@ -124,6 +127,7 @@ public class KnightTour {
             int nextRow = move.getRow();
             int nextCol = move.getCol();
             board.board[nextRow][nextCol] = moveCount;
+            totalMoves++;
 
             if (heuristic1(board, nextRow, nextCol, moveCount + 1)) {
                 return true;
@@ -145,7 +149,7 @@ public class KnightTour {
      */
     public static boolean heuristic2(KnightBoard board, int row, int col, int moveCount) {
         // all spaces have been filled
-        if (moveCount == board.n * board.n) {
+        if (moveCount == (board.n * board.n) + 1) {
             return true;
         }
 
@@ -165,9 +169,10 @@ public class KnightTour {
         moves.sort(null);
 
         for (Position move : moves) {
-            int nextRow = move.getRow(); // method in position???
+            int nextRow = move.getRow(); 
             int nextCol = move.getCol();
             board.board[nextRow][nextCol] = moveCount;
+            totalMoves++; 
             if (heuristic2(board, nextRow, nextCol, moveCount + 1)) {
                 return true;
             }
@@ -209,7 +214,7 @@ public class KnightTour {
      */
     public static int distanceToBorder(KnightBoard board, int row, int col) {
         int distance = 0;
-        distance = Math.min(row, board.n - row) + Math.min(col, board.n - col);
+        distance = Math.min(row, (board.n - row) - 1) + Math.min(col, (board.n - col) - 1);
         return distance;
     }
 

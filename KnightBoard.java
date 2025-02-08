@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * The KnightBoard class represents the chessboard for the Knight's Tour problem. 
+ * It maintains the board state and available moves. 
+ */
 public class KnightBoard {
     // manages board, tracks visited positions
 
@@ -36,7 +40,7 @@ public class KnightBoard {
     }
 
     public void printBoard() {
-        int length = Integer.toString(n * n - 1).length();
+        int length = Integer.toString(n * n).length();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 System.out.printf("%" + length + "d ", board[i][j]);
